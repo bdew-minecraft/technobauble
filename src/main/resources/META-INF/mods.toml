@@ -1,0 +1,43 @@
+modLoader = "kotori_scala"
+loaderVersion = "[2.13.3,2.14.0)"
+issueTrackerURL = "https://github.com/bdew-minecraft/generators/issues"
+license = "MIT"
+
+[[mods]]
+modId = "technobauble"
+version = "${file.jarVersion}"
+displayName = "Technobauble"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/technobauble"
+authors = "bdew"
+description = '''
+This mod that adds various baubles/curios
+'''
+
+[[dependencies.technobauble]]
+modId = "forge"
+mandatory = true
+versionRange = "[36,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.technobauble]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.technobauble]]
+modId = "bdlib"
+mandatory = true
+versionRange = "[1.17.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.technobauble]]
+modId = "curios"
+mandatory = true
+versionRange = "[1.16.5-4.0,)"
+ordering = "NONE"
+side = "BOTH"
+
