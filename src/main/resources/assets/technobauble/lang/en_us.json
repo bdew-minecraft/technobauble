@@ -1,0 +1,7 @@
+{
+  "block.technobauble.charger": "Transdimensional Charger",
+  "item.technobauble.receiver": "Transdimensional Receiver",
+  "technobauble.unbound": "Not Bound",
+  "technobauble.bound": "Bound to charger at %s (dimension %s)",
+  "technobauble.receiver.desc": "Use on a %s to bind"
+}
