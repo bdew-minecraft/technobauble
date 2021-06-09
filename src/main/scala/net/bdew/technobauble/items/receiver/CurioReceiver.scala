@@ -20,7 +20,7 @@ class CurioReceiver(stack: ItemStack, item: ItemReceiver) extends ICurio {
     if (entity.level.isClientSide) return
     for {
       bind <- item.getBind(stack)
-      world <- bind.world(entity.level.getServer)
+      world <- bind.world(entity.level.getServer) if world.isLoaded(bind.pos)
       tile <- world.getTileSafe[TileCharger](bind.pos) if tile.power.stored > 0
     } {
       // Charge curios
