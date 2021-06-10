@@ -14,8 +14,6 @@ import top.theillusivec4.curios.api.`type`.capability.ICurio
 import scala.jdk.CollectionConverters._
 
 class CurioReceiver(stack: ItemStack, item: ItemReceiver) extends ICurio {
-  println(s"CurioReceiver init for ${stack} bind = ${item.getBind(stack)}")
-
   override def curioTick(identifier: String, index: Int, entity: LivingEntity): Unit = {
     if (entity.level.isClientSide) return
     for {

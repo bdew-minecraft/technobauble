@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "LCL",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:nuggets/gold"
+    },
+    "C": {
+      "item": "technobauble:flux_core"
+    },
+    "L": {
+      "tag": "forge:leather"
+    }
+  },
+  "result": {
+    "item": "technobauble:receiver"
+  }
+}

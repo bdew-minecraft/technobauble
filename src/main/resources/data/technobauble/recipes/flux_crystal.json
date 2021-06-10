@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RDR",
+    "GQG",
+    "RPR"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "P": {
+      "tag": "forge:ender_pearls"
+    },
+    "G": {
+      "tag": "forge:nuggets/gold"
+    },
+    "Q": {
+      "tag": "forge:gems/quartz"
+    }
+  },
+  "result": {
+    "item": "technobauble:flux_crystal"
+  }
+}

@@ -6,12 +6,15 @@ import net.bdew.technobauble.items.receiver.ItemReceiver
 import net.minecraft.item.{Item, ItemGroup, ItemStack}
 import net.minecraftforge.fml.RegistryObject
 
-object CreativeTab extends ItemGroup("compacter") {
-  override def makeIcon(): ItemStack = new ItemStack(Items.receiver.get())
+object CreativeTab extends ItemGroup("technobauble") {
+  override def makeIcon(): ItemStack = new ItemStack(Items.fluxCore.get())
 }
 
 object Items extends ItemManager(CreativeTab) {
   def nonStackable: Item.Properties = props.stacksTo(1)
+
+  val fluxCrystal: RegistryObject[Item] = simple("flux_crystal", props)
+  val fluxCore: RegistryObject[Item] = simple("flux_core", props)
 
   val receiver: RegistryObject[ItemReceiver] = register("receiver", () => new ItemReceiver)
   val backpack: RegistryObject[ItemBackpack] = register("backpack", () => new ItemBackpack)

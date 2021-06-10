@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L L",
+    "HCH",
+    "III"
+  ],
+  "key": {
+    "H": {
+      "tag": "forge:chests"
+    },
+    "C": {
+      "item": "technobauble:flux_core"
+    },
+    "L": {
+      "tag": "forge:leather"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "technobauble:backpack"
+  }
+}

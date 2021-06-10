@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CNC",
+    "GDG",
+    "CNC"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "C": {
+      "item": "technobauble:flux_crystal"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "N": {
+      "tag": "forge:ingots/netherite"
+    }
+  },
+  "result": {
+    "item": "technobauble:flux_core"
+  }
+}
