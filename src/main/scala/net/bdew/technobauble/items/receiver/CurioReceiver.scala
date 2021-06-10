@@ -23,16 +23,6 @@ class CurioReceiver(stack: ItemStack, item: ItemReceiver) extends ICurio {
       world <- bind.world(entity.level.getServer) if world.isLoaded(bind.pos)
       tile <- world.getTileSafe[TileCharger](bind.pos) if tile.power.stored > 0
     } {
-      // Charge curios
-      for {
-        curios <- CuriosApi.getCuriosHelper.getEquippedCurios(entity)
-        slot <- 0 until curios.getSlots
-        stack = curios.getStackInSlot(slot) if !stack.isEmpty && stack != this.stack
-        handler <- stack.getCapability(Caps.ENERGY)
-      } {
-        EnergyHelper.pushEnergy(tile.chargeHandler, handler, false)
-      }
-
       // Charge other curios
       for {
         curios <- CuriosApi.getCuriosHelper.getEquippedCurios(entity)
