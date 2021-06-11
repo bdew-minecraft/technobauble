@@ -4,6 +4,7 @@
   "item.technobauble.backpack": "Pocket Dimension Backpack",
   "item.technobauble.flux_crystal": "Flux Crystal",
   "item.technobauble.flux_core": "Flux Projection Core",
+  "item.technobauble.shield": "Personal Integrity Field Projector",
   "itemGroup.technobauble": "Technobauble",
   "technobauble.unbound": "Not Bound",
   "technobauble.bound": "Bound to transmitter at %s (dimension %s)",

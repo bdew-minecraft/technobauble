@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "LCL",
+    "BDB"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "C": {
+      "item": "technobauble:flux_core"
+    },
+    "L": {
+      "tag": "forge:leather"
+    },
+    "B": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "item": "technobauble:shield"
+  }
+}

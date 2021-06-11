@@ -3,6 +3,7 @@ package net.bdew.technobauble
 import net.bdew.technobauble.datagen.DataGeneration
 import net.bdew.technobauble.network.NetworkHandler
 import net.bdew.technobauble.registries.{Blocks, Containers, Items}
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent
@@ -23,6 +24,8 @@ object Technobauble {
 
   FMLJavaModLoadingContext.get.getModEventBus.addListener(this.enqueueIMC)
   FMLJavaModLoadingContext.get.getModEventBus.addListener(DataGeneration.onGatherData)
+
+  MinecraftForge.EVENT_BUS.register(DamageHandler)
 
   private def enqueueIMC(event: InterModEnqueueEvent): Unit = {
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BACK.getMessageBuilder.build)
