@@ -4,6 +4,7 @@ import net.minecraft.network.PacketBuffer
 
 object ActivateKind extends Enumeration {
   val BACKPACK: Value = Value(0, "BACKPACK")
+  val MAGNET: Value = Value(1, "MAGNET")
 }
 
 case class MsgClientActivate(kind: ActivateKind.Value) extends NetworkHandler.Message

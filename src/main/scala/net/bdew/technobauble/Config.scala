@@ -2,6 +2,7 @@ package net.bdew.technobauble
 
 import net.bdew.lib.config.ConfigSection
 import net.bdew.technobauble.blocks.charger.ConfigCharger
+import net.bdew.technobauble.items.magnet.ConfigMagnet
 import net.bdew.technobauble.items.shield.ConfigShield
 import net.minecraftforge.common.ForgeConfigSpec
 
@@ -16,6 +17,7 @@ object Config {
   commmonBuilder.pop().push("Items")
 
   val Shield: ConfigShield = ConfigSection(commmonBuilder, "Shield", new ConfigShield(commmonBuilder))
+  val Magnet: ConfigMagnet = ConfigSection(commmonBuilder, "Magnet", new ConfigMagnet(commmonBuilder))
 
   commmonBuilder.pop()
 

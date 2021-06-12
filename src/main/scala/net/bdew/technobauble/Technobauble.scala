@@ -29,7 +29,7 @@ object Technobauble {
 
   private def enqueueIMC(event: InterModEnqueueEvent): Unit = {
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BACK.getMessageBuilder.build)
-    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.CHARM.getMessageBuilder.build)
+    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.CHARM.getMessageBuilder.size(2).build)
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BELT.getMessageBuilder.build)
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BODY.getMessageBuilder.build)
   }

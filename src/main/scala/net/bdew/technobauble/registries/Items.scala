@@ -2,6 +2,7 @@ package net.bdew.technobauble.registries
 
 import net.bdew.lib.managers.ItemManager
 import net.bdew.technobauble.items.backpack.ItemBackpack
+import net.bdew.technobauble.items.magnet.ItemMagnet
 import net.bdew.technobauble.items.receiver.ItemReceiver
 import net.bdew.technobauble.items.shield.ItemShield
 import net.minecraft.item.{Item, ItemGroup, ItemStack}
@@ -20,4 +21,5 @@ object Items extends ItemManager(CreativeTab) {
   val receiver: RegistryObject[ItemReceiver] = register("receiver", () => new ItemReceiver)
   val backpack: RegistryObject[ItemBackpack] = register("backpack", () => new ItemBackpack)
   val shield: RegistryObject[ItemShield] = register("shield", () => new ItemShield)
+  val magnet: RegistryObject[ItemMagnet] = register("magnet", () => new ItemMagnet)
 }

@@ -1,6 +1,7 @@
 {
   "replace": "false",
   "values": [
-    "technobauble:receiver"
+    "technobauble:receiver",
+    "technobauble:magnet"
   ]
 }

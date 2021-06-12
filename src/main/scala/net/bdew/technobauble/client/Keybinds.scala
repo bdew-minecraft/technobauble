@@ -18,8 +18,18 @@ object Keybinds {
     "technobauble.name"
   )
 
+  val toggleMagnet = new KeyBinding(
+    "technobauble.key.magnet",
+    KeyConflictContext.IN_GAME,
+    KeyModifier.CONTROL,
+    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M),
+    "technobauble.name"
+  )
+
+
   private def onKeyInput(event: InputEvent.KeyInputEvent): Unit = {
     if (openBackpack.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.BACKPACK))
+    if (toggleMagnet.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.MAGNET))
   }
 
   def init(): Unit = {
