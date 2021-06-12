@@ -19,5 +19,9 @@
   "technobauble.label.status": "Status: %s",
   "technobauble.label.on": "ON",
   "technobauble.label.off": "OFF",
-  "technobauble.message.toggle": "%s is now %s"
+  "technobauble.message.toggle": "%s is now %s",
+  "curios.identifier.legs": "Legs",
+  "curios.identifier.gadget": "Gadget",
+  "curios.modifiers.gadget": "When equipped as gadget:",
+  "curios.modifiers.legs": "When on legs:"
 }

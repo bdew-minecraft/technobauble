@@ -3,6 +3,7 @@ package net.bdew.technobauble
 import net.bdew.technobauble.datagen.DataGeneration
 import net.bdew.technobauble.network.NetworkHandler
 import net.bdew.technobauble.registries.{Blocks, Containers, Items}
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
@@ -29,8 +30,20 @@ object Technobauble {
 
   private def enqueueIMC(event: InterModEnqueueEvent): Unit = {
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BACK.getMessageBuilder.build)
-    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.CHARM.getMessageBuilder.size(2).build)
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BELT.getMessageBuilder.build)
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BODY.getMessageBuilder.build)
+
+    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+      () => new SlotTypeMessage.Builder("legs")
+        .icon(new ResourceLocation(Technobauble.ModId, "slot/legs"))
+        .build()
+    )
+
+    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+      () => new SlotTypeMessage.Builder("gadget")
+        .icon(new ResourceLocation(Technobauble.ModId, "slot/gadget"))
+        .size(4)
+        .build()
+    )
   }
 }
