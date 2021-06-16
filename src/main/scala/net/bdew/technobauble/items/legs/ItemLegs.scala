@@ -1,4 +1,4 @@
-package net.bdew.technobauble.items.magnet
+package net.bdew.technobauble.items.legs
 
 import net.bdew.lib.Text
 import net.bdew.lib.Text.pimpTextComponent
@@ -12,16 +12,18 @@ import net.minecraft.world.World
 
 import java.util
 
-class ItemMagnet extends PoweredCurioItem[CurioMagnet] {
-  override val cfg: ConfigMagnet = Config.Magnet
-  override def makeCurio(s: ItemStack): CurioMagnet = new CurioMagnet(s, this)
+class ItemLegs extends PoweredCurioItem[CurioLegs] {
+  override val cfg: ConfigLegs = Config.Legs
+  override def makeCurio(s: ItemStack): CurioLegs = new CurioLegs(s, this)
 
-  val attract: ItemFeature = ItemFeature("attract")
+  val jumpBoost: ItemFeature = ItemFeature("jump_boost")
+  val runBoost: ItemFeature = ItemFeature("run_boost")
 
   override def appendHoverText(stack: ItemStack, world: World, tooltip: util.List[ITextComponent], flag: ITooltipFlag): Unit = {
-    tooltip.add(attract.hoverText(stack, Keybinds.toggleRun))
+    tooltip.add(jumpBoost.hoverText(stack, Keybinds.toggleJump))
+    tooltip.add(runBoost.hoverText(stack, Keybinds.toggleRun))
     super.appendHoverText(stack, world, tooltip, flag)
-    tooltip.add(Text.translate("technobauble.magnet.desc").setColor(Text.Color.GRAY))
+    tooltip.add(Text.translate("technobauble.legs.desc").setColor(Text.Color.GRAY))
   }
 }
 

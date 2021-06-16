@@ -26,7 +26,8 @@ object Technobauble {
   FMLJavaModLoadingContext.get.getModEventBus.addListener(this.enqueueIMC)
   FMLJavaModLoadingContext.get.getModEventBus.addListener(DataGeneration.onGatherData)
 
-  MinecraftForge.EVENT_BUS.register(DamageHandler)
+  MinecraftForge.EVENT_BUS.register(PlayerEventHandler)
+  MinecraftForge.EVENT_BUS.register(PlayerStatusManager)
 
   private def enqueueIMC(event: InterModEnqueueEvent): Unit = {
     InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () => SlotTypePreset.BACK.getMessageBuilder.build)

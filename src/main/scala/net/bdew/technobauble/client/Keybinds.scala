@@ -26,14 +26,34 @@ object Keybinds {
     "technobauble.name"
   )
 
+  val toggleRun = new KeyBinding(
+    "technobauble.key.run",
+    KeyConflictContext.IN_GAME,
+    KeyModifier.CONTROL,
+    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_R),
+    "technobauble.name"
+  )
+
+  val toggleJump = new KeyBinding(
+    "technobauble.key.jump",
+    KeyConflictContext.IN_GAME,
+    KeyModifier.CONTROL,
+    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_J),
+    "technobauble.name"
+  )
 
   private def onKeyInput(event: InputEvent.KeyInputEvent): Unit = {
     if (openBackpack.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.BACKPACK))
-    if (toggleMagnet.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.MAGNET))
+    if (toggleMagnet.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.TOGGLE_MAGNET))
+    if (toggleRun.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.TOGGLE_RUN))
+    if (toggleJump.isDown) NetworkHandler.sendToServer(MsgClientActivate(ActivateKind.TOGGLE_JUMP))
   }
 
   def init(): Unit = {
     ClientRegistry.registerKeyBinding(openBackpack)
+    ClientRegistry.registerKeyBinding(toggleMagnet)
+    ClientRegistry.registerKeyBinding(toggleRun)
+    ClientRegistry.registerKeyBinding(toggleJump)
     MinecraftForge.EVENT_BUS.addListener(this.onKeyInput)
   }
 }
