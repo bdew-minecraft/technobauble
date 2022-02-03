@@ -7,26 +7,27 @@ import net.bdew.lib.{Misc, Text}
 import net.bdew.technobauble.Caps
 import net.bdew.technobauble.client.Keybinds
 import net.bdew.technobauble.registries.Items
-import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.entity.player.{PlayerEntity, ServerPlayerEntity}
-import net.minecraft.item.{Item, ItemStack}
-import net.minecraft.nbt.CompoundNBT
-import net.minecraft.network.PacketBuffer
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.{ActionResult, Direction, Hand}
-import net.minecraft.world.World
+import net.minecraft.core.Direction
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.{Item, ItemStack, TooltipFlag}
+import net.minecraft.world.level.Level
+import net.minecraft.world.{InteractionHand, InteractionResultHolder}
 import net.minecraftforge.common.capabilities.{Capability, ICapabilityProvider}
 import net.minecraftforge.common.util.LazyOptional
-import net.minecraftforge.fml.network.NetworkHooks
+import net.minecraftforge.network.NetworkHooks
 import top.theillusivec4.curios.api.`type`.capability.ICurio
 
 import java.util
 
 class ItemBackpack extends Item(Items.nonStackable) {
-  override def initCapabilities(stack: ItemStack, nbt: CompoundNBT): ICapabilityProvider =
+  override def initCapabilities(stack: ItemStack, nbt: CompoundTag): ICapabilityProvider =
     new CapHolder(new CurioBackpack(stack, this))
 
-  override def appendHoverText(stack: ItemStack, world: World, toolTip: util.List[ITextComponent], flags: ITooltipFlag): Unit = {
+  override def appendHoverText(stack: ItemStack, world: Level, toolTip: util.List[Component], flags: TooltipFlag): Unit = {
     toolTip.add(
       Text.translate("technobauble.backpack.desc",
         Text.translate(
@@ -37,23 +38,23 @@ class ItemBackpack extends Item(Items.nonStackable) {
     )
   }
 
-  override def use(world: World, player: PlayerEntity, hand: Hand): ActionResult[ItemStack] = {
+  override def use(world: Level, player: Player, hand: InteractionHand): InteractionResultHolder[ItemStack] = {
     val stack = player.getItemInHand(hand)
-    if (world.isClientSide) return ActionResult.success(stack)
+    if (world.isClientSide) return InteractionResultHolder.success(stack)
 
     player match {
-      case p: ServerPlayerEntity =>
+      case p: ServerPlayer =>
         stack.getCapability(Caps.CURIO).toScala
           .flatMap(x => Misc.asInstanceOpt(x, classOf[CurioBackpack]))
           .foreach(x => {
-            val ls = if (hand == Hand.MAIN_HAND) player.inventory.selected else 40 // 40 is offhand slot
-            NetworkHooks.openGui(p, x, (pb: PacketBuffer) => {
+            val ls = if (hand == InteractionHand.MAIN_HAND) player.getInventory.selected else 40 // 40 is offhand slot
+            NetworkHooks.openGui(p, x, (pb: FriendlyByteBuf) => {
               pb.writeByte(ls)
             })
             Misc.asInstanceOpt(player.containerMenu, classOf[ContainerBackpack]).foreach(_.lockSlot = ls)
           })
-        ActionResult.consume(stack)
-      case _ => ActionResult.fail(stack)
+        InteractionResultHolder.consume(stack)
+      case _ => InteractionResultHolder.fail(stack)
     }
   }
 

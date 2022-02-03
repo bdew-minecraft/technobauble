@@ -1,6 +1,6 @@
 package net.bdew.technobauble.network
 
-import net.minecraft.network.PacketBuffer
+import net.minecraft.network.FriendlyByteBuf
 
 object ActivateKind extends Enumeration {
   val BACKPACK: Value = Value(0, "BACKPACK")
@@ -12,9 +12,9 @@ object ActivateKind extends Enumeration {
 case class MsgClientActivate(kind: ActivateKind.Value) extends NetworkHandler.Message
 
 object CodecClientActivate extends NetworkHandler.Codec[MsgClientActivate] {
-  override def encodeMsg(m: MsgClientActivate, p: PacketBuffer): Unit =
+  override def encodeMsg(m: MsgClientActivate, p: FriendlyByteBuf): Unit =
     p.writeByte(m.kind.id)
 
-  override def decodeMsg(p: PacketBuffer): MsgClientActivate =
+  override def decodeMsg(p: FriendlyByteBuf): MsgClientActivate =
     MsgClientActivate(ActivateKind(p.readByte()))
 }

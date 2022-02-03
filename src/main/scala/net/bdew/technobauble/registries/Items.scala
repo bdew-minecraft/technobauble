@@ -6,10 +6,10 @@ import net.bdew.technobauble.items.legs.ItemLegs
 import net.bdew.technobauble.items.magnet.ItemMagnet
 import net.bdew.technobauble.items.receiver.ItemReceiver
 import net.bdew.technobauble.items.shield.ItemShield
-import net.minecraft.item.{Item, ItemGroup, ItemStack}
-import net.minecraftforge.fml.RegistryObject
+import net.minecraft.world.item.{CreativeModeTab, Item, ItemStack}
+import net.minecraftforge.registries.RegistryObject
 
-object CreativeTab extends ItemGroup("technobauble") {
+object CreativeTab extends CreativeModeTab("technobauble") {
   override def makeIcon(): ItemStack = new ItemStack(Items.fluxCore.get())
 }
 

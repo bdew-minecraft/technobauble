@@ -6,12 +6,11 @@ import net.bdew.lib.config.PowerConfig
 import net.bdew.lib.power.ItemPoweredBase
 import net.bdew.technobauble.Caps
 import net.bdew.technobauble.registries.Items
-import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.item.{Item, ItemStack}
-import net.minecraft.nbt.CompoundNBT
-import net.minecraft.util.Direction
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.world.World
+import net.minecraft.core.Direction
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
+import net.minecraft.world.item.{Item, ItemStack, TooltipFlag}
+import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.{Capability, ICapabilityProvider}
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.IEnergyStorage
@@ -27,10 +26,10 @@ abstract class PoweredCurioItem[C <: ICurio] extends Item(Items.nonStackable) wi
   override def maxReceive: Float = cfg.maxReceive()
   override def maxExtract: Float = 0
 
-  override def initCapabilities(stack: ItemStack, nbt: CompoundNBT): ICapabilityProvider =
+  override def initCapabilities(stack: ItemStack, nbt: CompoundTag): ICapabilityProvider =
     new CapHolder(makeCurio(stack), new ItemEnergyHandler(this, stack, true, false))
 
-  override def appendHoverText(stack: ItemStack, world: World, tooltip: util.List[ITextComponent], flag: ITooltipFlag): Unit = {
+  override def appendHoverText(stack: ItemStack, world: Level, tooltip: util.List[Component], flag: TooltipFlag): Unit = {
     tooltip.add(Text.energyCap(getCharge(stack), maxCharge))
     super.appendHoverText(stack, world, tooltip, flag)
   }

@@ -5,10 +5,9 @@ import net.bdew.lib.Text.pimpTextComponent
 import net.bdew.technobauble.Config
 import net.bdew.technobauble.client.Keybinds
 import net.bdew.technobauble.items.{ItemFeature, PoweredCurioItem}
-import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.item.ItemStack
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.world.World
+import net.minecraft.network.chat.Component
+import net.minecraft.world.item.{ItemStack, TooltipFlag}
+import net.minecraft.world.level.Level
 
 import java.util
 
@@ -18,8 +17,8 @@ class ItemMagnet extends PoweredCurioItem[CurioMagnet] {
 
   val attract: ItemFeature = ItemFeature("attract")
 
-  override def appendHoverText(stack: ItemStack, world: World, tooltip: util.List[ITextComponent], flag: ITooltipFlag): Unit = {
-    tooltip.add(attract.hoverText(stack, Keybinds.toggleRun))
+  override def appendHoverText(stack: ItemStack, world: Level, tooltip: util.List[Component], flag: TooltipFlag): Unit = {
+    tooltip.add(attract.hoverText(stack, Keybinds.toggleMagnet))
     super.appendHoverText(stack, world, tooltip, flag)
     tooltip.add(Text.translate("technobauble.magnet.desc").setColor(Text.Color.GRAY))
   }

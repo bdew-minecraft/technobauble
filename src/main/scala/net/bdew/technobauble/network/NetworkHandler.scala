@@ -6,13 +6,13 @@ import net.bdew.technobauble.items.backpack.{CurioBackpack, ItemBackpack}
 import net.bdew.technobauble.items.legs.ItemLegs
 import net.bdew.technobauble.items.magnet.ItemMagnet
 import net.bdew.technobauble.{PlayerStatusManager, Technobauble, Utils}
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.Item
-import net.minecraft.network.PacketBuffer
-import net.minecraftforge.fml.network.NetworkHooks
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.Item
+import net.minecraftforge.network.NetworkHooks
 
 object NetworkHandler extends NetChannel(Technobauble.ModId, "main", "1") {
-  def toggleFeature[T <: Item](cls: Class[T], feature: T => ItemFeature, owner: PlayerEntity): Unit = {
+  def toggleFeature[T <: Item](cls: Class[T], feature: T => ItemFeature, owner: Player): Unit = {
     Utils.findCurioStack(owner, cls).foreach(stack => {
       feature(stack.getItem.asInstanceOf[T]).toggle(stack, owner)
     })
@@ -22,7 +22,7 @@ object NetworkHandler extends NetChannel(Technobauble.ModId, "main", "1") {
     msg.kind match {
       case ActivateKind.BACKPACK =>
         Utils.findCurioHandler(ctx.getSender, classOf[ItemBackpack], classOf[CurioBackpack])
-          .foreach(NetworkHooks.openGui(ctx.getSender, _, (pb: PacketBuffer) => {
+          .foreach(NetworkHooks.openGui(ctx.getSender, _, (pb: FriendlyByteBuf) => {
             pb.writeByte(-1)
           }))
       case ActivateKind.TOGGLE_MAGNET =>

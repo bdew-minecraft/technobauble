@@ -1,44 +1,44 @@
 package net.bdew.technobauble.client
 
+import com.mojang.blaze3d.platform.InputConstants
 import net.bdew.technobauble.network.{ActivateKind, MsgClientActivate, NetworkHandler}
-import net.minecraft.client.settings.KeyBinding
-import net.minecraft.client.util.InputMappings
+import net.minecraft.client.KeyMapping
+import net.minecraftforge.client.ClientRegistry
 import net.minecraftforge.client.event.InputEvent
 import net.minecraftforge.client.settings.{KeyConflictContext, KeyModifier}
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.client.registry.ClientRegistry
 import org.lwjgl.glfw.GLFW
 
 object Keybinds {
-  val openBackpack = new KeyBinding(
+  val openBackpack = new KeyMapping(
     "technobauble.key.backpack",
     KeyConflictContext.IN_GAME,
     KeyModifier.CONTROL,
-    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_E),
+    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_E),
     "technobauble.name"
   )
 
-  val toggleMagnet = new KeyBinding(
+  val toggleMagnet = new KeyMapping(
     "technobauble.key.magnet",
     KeyConflictContext.IN_GAME,
     KeyModifier.CONTROL,
-    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M),
+    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M),
     "technobauble.name"
   )
 
-  val toggleRun = new KeyBinding(
+  val toggleRun = new KeyMapping(
     "technobauble.key.run",
     KeyConflictContext.IN_GAME,
     KeyModifier.CONTROL,
-    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_R),
+    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_R),
     "technobauble.name"
   )
 
-  val toggleJump = new KeyBinding(
+  val toggleJump = new KeyMapping(
     "technobauble.key.jump",
     KeyConflictContext.IN_GAME,
     KeyModifier.CONTROL,
-    InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_J),
+    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_J),
     "technobauble.name"
   )
 

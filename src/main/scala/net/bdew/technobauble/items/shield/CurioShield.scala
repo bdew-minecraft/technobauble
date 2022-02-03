@@ -1,11 +1,12 @@
 package net.bdew.technobauble.items.shield
 
 import net.bdew.technobauble.Config
-import net.minecraft.item.ItemStack
+import net.minecraft.world.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import top.theillusivec4.curios.api.`type`.capability.ICurio
 
 class CurioShield(stack: ItemStack, item: ItemShield) extends ICurio {
+  override def getStack: ItemStack = stack
   def doAbsorb(ev: LivingHurtEvent): Unit = {
     if (item.getCharge(stack) <= 0 || ev.getSource.isBypassInvul) return
     val needPower = ev.getAmount * Config.Shield.damageAbsorbCost()

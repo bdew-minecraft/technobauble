@@ -6,13 +6,14 @@ import net.bdew.lib.data.base.TileDataSlots
 import net.bdew.lib.power.DataSlotPower
 import net.bdew.lib.tile.TileExtended
 import net.bdew.technobauble.Config
-import net.minecraft.tileentity.TileEntityType
-import net.minecraft.util.Direction
+import net.minecraft.core.{BlockPos, Direction}
+import net.minecraft.world.level.block.entity.BlockEntityType
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.IEnergyStorage
 
-class TileCharger(teType: TileEntityType[_]) extends TileExtended(teType) with TileDataSlots {
+class TileCharger(teType: BlockEntityType[_], pos: BlockPos, state: BlockState) extends TileExtended(teType, pos, state) with TileDataSlots {
   val power: DataSlotPower = DataSlotPower("power", this)
 
   val powerHandler: LazyOptional[IEnergyStorage] = PowerEnergyHandler.create(power, true, false)

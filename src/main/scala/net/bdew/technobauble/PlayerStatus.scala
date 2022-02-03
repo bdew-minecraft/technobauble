@@ -2,12 +2,13 @@ package net.bdew.technobauble
 
 import net.bdew.lib.Client
 import net.bdew.technobauble.network.{MsgUpdateStatus, NetworkHandler}
-import net.minecraft.entity.player.{PlayerEntity, ServerPlayerEntity}
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.ServerTickEvent
 import net.minecraftforge.event.entity.{EntityJoinWorldEvent, EntityLeaveWorldEvent}
 import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.server.ServerLifecycleHooks
+import net.minecraftforge.server.ServerLifecycleHooks
 import org.apache.logging.log4j.{LogManager, Logger}
 
 import java.util.UUID
@@ -33,7 +34,7 @@ object PlayerStatusManager {
   @SubscribeEvent
   def onEntityJoinWorldEvent(ev: EntityJoinWorldEvent): Unit = {
     ev.getEntity match {
-      case p: PlayerEntity =>
+      case p: Player =>
         if (p.isLocalPlayer)
           updateLocal(defaultStatus)
         else
@@ -44,7 +45,7 @@ object PlayerStatusManager {
   @SubscribeEvent
   def onEntityLeaveWorldEvent(ev: EntityLeaveWorldEvent): Unit = {
     ev.getEntity match {
-      case p: PlayerEntity if !p.isLocalPlayer =>
+      case p: Player if !p.isLocalPlayer =>
         remoteStatus -= p.getUUID
       case _ => //pass
     }
@@ -63,7 +64,7 @@ object PlayerStatusManager {
     }
   }
 
-  def updateStepAssist(p: ServerPlayerEntity, stepAssist: Boolean): Unit = {
+  def updateStepAssist(p: ServerPlayer, stepAssist: Boolean): Unit = {
     if (updates.getOrElse(p.getUUID, remoteStatus(p.getUUID)).hasStepAssist != stepAssist) {
       val newStatus = remoteStatus(p.getUUID).copy(hasStepAssist = stepAssist)
       updates += p.getUUID -> newStatus

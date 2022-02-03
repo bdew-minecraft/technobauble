@@ -2,10 +2,10 @@ package net.bdew.technobauble.items.backpack
 
 import net.bdew.lib.gui.widgets.WidgetLabel
 import net.bdew.lib.gui.{BaseScreen, Color, Rect, Sprite, Texture}
-import net.minecraft.entity.player.PlayerInventory
-import net.minecraft.util.text.ITextComponent
+import net.minecraft.network.chat.Component
+import net.minecraft.world.entity.player.Inventory
 
-class GuiBackpack(container: ContainerBackpack, playerInv: PlayerInventory, title: ITextComponent)
+class GuiBackpack(container: ContainerBackpack, playerInv: Inventory, title: Component)
   extends BaseScreen(container, playerInv, title) {
   override val background: Sprite = Texture("minecraft", "textures/gui/container/generic_54.png", Rect(0, 0, 176, 222))
 

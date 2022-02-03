@@ -4,11 +4,11 @@ import net.bdew.lib.PimpVanilla._
 import net.bdew.lib.Text
 import net.bdew.lib.Text.pimpTextComponent
 import net.bdew.lib.items.StackProperty
-import net.minecraft.client.settings.KeyBinding
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.util.Util
-import net.minecraft.util.text.IFormattableTextComponent
+import net.minecraft.Util
+import net.minecraft.client.KeyMapping
+import net.minecraft.network.chat.MutableComponent
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraftforge.api.distmarker.{Dist, OnlyIn}
 
 case class ItemFeature(id: String) {
@@ -20,9 +20,9 @@ case class ItemFeature(id: String) {
   def setEnabled(stack: ItemStack, v: Boolean): Unit =
     flag.set(stack, v)
 
-  def label: IFormattableTextComponent = Text.translate(s"technobauble.feature.$id")
+  def label: MutableComponent = Text.translate(s"technobauble.feature.$id")
 
-  def toggle(stack: ItemStack, owner: PlayerEntity): Boolean = {
+  def toggle(stack: ItemStack, owner: Player): Boolean = {
     val newVal = !enabled(stack)
     setEnabled(stack, newVal)
 
@@ -38,7 +38,7 @@ case class ItemFeature(id: String) {
   }
 
   @OnlyIn(Dist.CLIENT)
-  def hoverText(stack: ItemStack, keybind: KeyBinding): IFormattableTextComponent = {
+  def hoverText(stack: ItemStack, keybind: KeyMapping): MutableComponent = {
     Text.translate("technobauble.label.feature",
       label,
       if (enabled(stack))

@@ -3,7 +3,7 @@ package net.bdew.technobauble
 import net.bdew.technobauble.datagen.DataGeneration
 import net.bdew.technobauble.network.NetworkHandler
 import net.bdew.technobauble.registries.{Blocks, Containers, Items}
-import net.minecraft.util.ResourceLocation
+import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig

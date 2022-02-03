@@ -7,12 +7,13 @@ import net.bdew.lib.block.BlockPosDim
 import net.bdew.lib.capabilities.SimpleCapProvider
 import net.bdew.technobauble.Caps
 import net.bdew.technobauble.registries.{Blocks, Items}
-import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.item.{Item, ItemStack, ItemUseContext}
-import net.minecraft.nbt.CompoundNBT
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.{ActionResultType, Util}
-import net.minecraft.world.World
+import net.minecraft.Util
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.item.{Item, ItemStack, TooltipFlag}
+import net.minecraft.world.item.context.UseOnContext
+import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 
 import java.util
@@ -28,10 +29,10 @@ class ItemReceiver extends Item(Items.nonStackable) {
     stack.getOrCreateTag.setVal("bind", bind)
   }
 
-  override def useOn(ctx: ItemUseContext): ActionResultType = {
+  override def useOn(ctx: UseOnContext): InteractionResult = {
     if (ctx.getLevel.getBlockState(ctx.getClickedPos).getBlock != Blocks.charger.block.get())
-      return ActionResultType.PASS
-    if (ctx.getLevel.isClientSide) return ActionResultType.SUCCESS
+      return InteractionResult.PASS
+    if (ctx.getLevel.isClientSide) return InteractionResult.SUCCESS
     setBind(ctx.getItemInHand, BlockPosDim(ctx.getClickedPos, ctx.getLevel.dimension()))
     ctx.getPlayer.sendMessage(
       Text.translate("technobauble.bound",
@@ -39,10 +40,10 @@ class ItemReceiver extends Item(Items.nonStackable) {
         ctx.getLevel.dimension.location.toString
       ), Util.NIL_UUID
     )
-    ActionResultType.CONSUME
+    InteractionResult.CONSUME
   }
 
-  override def appendHoverText(stack: ItemStack, world: World, toolTip: util.List[ITextComponent], flags: ITooltipFlag): Unit = {
+  override def appendHoverText(stack: ItemStack, world: Level, toolTip: util.List[Component], flags: TooltipFlag): Unit = {
     getBind(stack) match {
       case Some(p) =>
         toolTip.add(Text.translate("technobauble.bound", "%d, %d, %d".format(p.x, p.y, p.z), p.dim.location.toString))
@@ -56,6 +57,6 @@ class ItemReceiver extends Item(Items.nonStackable) {
     )
   }
 
-  override def initCapabilities(stack: ItemStack, nbt: CompoundNBT): ICapabilityProvider =
+  override def initCapabilities(stack: ItemStack, nbt: CompoundTag): ICapabilityProvider =
     SimpleCapProvider(Caps.CURIO, new CurioReceiver(stack, this))
 }

@@ -2,12 +2,11 @@ package net.bdew.technobauble.items.backpack
 
 import net.bdew.lib.container.BaseContainer
 import net.bdew.technobauble.registries.Containers
-import net.minecraft.entity.player.{PlayerEntity, PlayerInventory}
-import net.minecraft.inventory.IInventory
-import net.minecraft.inventory.container.{ClickType, Slot}
-import net.minecraft.item.ItemStack
+import net.minecraft.world.Container
+import net.minecraft.world.entity.player.{Inventory, Player}
+import net.minecraft.world.inventory.{ClickType, Slot}
 
-class ContainerBackpack(inv: IInventory, playerInventory: PlayerInventory, id: Int)
+class ContainerBackpack(inv: Container, playerInventory: Inventory, id: Int)
   extends BaseContainer(inv, Containers.backpack.get(), id) {
   var lockSlot: Int = -1
 
@@ -20,13 +19,13 @@ class ContainerBackpack(inv: IInventory, playerInventory: PlayerInventory, id: I
     ))
   }
 
-  override def clicked(slotNum: Int, button: Int, clickType: ClickType, player: PlayerEntity): ItemStack = {
+  override def clicked(slotNum: Int, button: Int, clickType: ClickType, player: Player): Unit = {
     if (clickType == ClickType.SWAP && button == lockSlot) {
-      return player.inventory.getCarried
+      return
     } else if (slotNum >= 0 && slotNum < slots.size) {
       val slot = getSlot(slotNum)
       if (slot.container == playerInventory && slot.getSlotIndex == lockSlot)
-        return player.inventory.getCarried
+        return
     }
     super.clicked(slotNum, button, clickType, player)
   }

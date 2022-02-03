@@ -1,10 +1,10 @@
 package net.bdew.technobauble.items.legs
 
 import net.bdew.technobauble.PlayerStatusManager
-import net.minecraft.entity.LivingEntity
-import net.minecraft.entity.player.ServerPlayerEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.util.math.vector.Vector3d
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.phys.Vec3
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent
 import top.theillusivec4.curios.api.SlotContext
@@ -13,6 +13,8 @@ import top.theillusivec4.curios.api.`type`.capability.ICurio
 import scala.collection.mutable
 
 class CurioLegs(stack: ItemStack, item: ItemLegs) extends ICurio {
+  override def getStack: ItemStack = stack
+
   def doJump(ev: LivingJumpEvent): Unit = {
     if (!item.jumpBoost.enabled(stack)) return
     if (item.useCharge(stack, item.cfg.jumpEnergyCost())) {
@@ -28,7 +30,7 @@ class CurioLegs(stack: ItemStack, item: ItemLegs) extends ICurio {
 
   def updateStepAssist(wearer: LivingEntity, stepAssist: Boolean): Unit = {
     wearer match {
-      case entity: ServerPlayerEntity => PlayerStatusManager.updateStepAssist(entity, stepAssist)
+      case entity: ServerPlayer => PlayerStatusManager.updateStepAssist(entity, stepAssist)
       case _ => // pass
     }
   }
@@ -42,7 +44,7 @@ class CurioLegs(stack: ItemStack, item: ItemLegs) extends ICurio {
       if (canSpeedBoost(livingEntity)) {
         if (livingEntity.level.isClientSide) {
           if (livingEntity.zza != 0 || livingEntity.xxa != 0)
-            livingEntity.moveRelative(item.cfg.runBoost(), new Vector3d(livingEntity.xxa, 0, livingEntity.zza))
+            livingEntity.moveRelative(item.cfg.runBoost(), new Vec3(livingEntity.xxa, 0, livingEntity.zza))
         } else {
           if (PlayerPosTracker.positions.get(livingEntity).exists(_.distanceTo(livingEntity.position()) > 0.01))
             item.useCharge(stack, item.cfg.movingEnergyCost())
@@ -55,13 +57,13 @@ class CurioLegs(stack: ItemStack, item: ItemLegs) extends ICurio {
   }
 
   override def onUnequip(slotContext: SlotContext, newStack: ItemStack): Unit = {
-    if (newStack.getItem != item && !slotContext.getWearer.level.isClientSide) {
-      updateStepAssist(slotContext.getWearer, false)
-      PlayerPosTracker.positions.remove(slotContext.getWearer)
+    if (newStack.getItem != item && !slotContext.entity.level.isClientSide) {
+      updateStepAssist(slotContext.entity, false)
+      PlayerPosTracker.positions.remove(slotContext.entity)
     }
   }
 }
 
 object PlayerPosTracker {
-  val positions: mutable.Map[LivingEntity, Vector3d] = mutable.WeakHashMap.empty[LivingEntity, Vector3d]
+  val positions: mutable.Map[LivingEntity, Vec3] = mutable.WeakHashMap.empty[LivingEntity, Vec3]
 }
