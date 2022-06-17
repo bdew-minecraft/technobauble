@@ -7,12 +7,11 @@ import net.bdew.lib.block.BlockPosDim
 import net.bdew.lib.capabilities.SimpleCapProvider
 import net.bdew.technobauble.Caps
 import net.bdew.technobauble.registries.{Blocks, Items}
-import net.minecraft.Util
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.item.{Item, ItemStack, TooltipFlag}
 import net.minecraft.world.item.context.UseOnContext
+import net.minecraft.world.item.{Item, ItemStack, TooltipFlag}
 import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 
@@ -34,11 +33,11 @@ class ItemReceiver extends Item(Items.nonStackable) {
       return InteractionResult.PASS
     if (ctx.getLevel.isClientSide) return InteractionResult.SUCCESS
     setBind(ctx.getItemInHand, BlockPosDim(ctx.getClickedPos, ctx.getLevel.dimension()))
-    ctx.getPlayer.sendMessage(
+    ctx.getPlayer.sendSystemMessage(
       Text.translate("technobauble.bound",
         "%d, %d, %d".format(ctx.getClickedPos.getX, ctx.getClickedPos.getY, ctx.getClickedPos.getZ),
         ctx.getLevel.dimension.location.toString
-      ), Util.NIL_UUID
+      )
     )
     InteractionResult.CONSUME
   }
