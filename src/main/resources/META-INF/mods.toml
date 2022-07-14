@@ -16,7 +16,7 @@ This mod that adds various baubles/curios
 [[dependencies.technobauble]]
 modId = "forge"
 mandatory = true
-versionRange = "[41.0.64,)"
+versionRange = "[41.0.98,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -30,7 +30,7 @@ side = "BOTH"
 [[dependencies.technobauble]]
 modId = "bdlib"
 mandatory = true
-versionRange = "[1.21.0,)"
+versionRange = "[1.22.0,)"
 ordering = "NONE"
 side = "BOTH"
 

@@ -22,7 +22,7 @@ object NetworkHandler extends NetChannel(Technobauble.ModId, "main", "1") {
     msg.kind match {
       case ActivateKind.BACKPACK =>
         Utils.findCurioHandler(ctx.getSender, classOf[ItemBackpack], classOf[CurioBackpack])
-          .foreach(NetworkHooks.openGui(ctx.getSender, _, (pb: FriendlyByteBuf) => {
+          .foreach(NetworkHooks.openScreen(ctx.getSender, _, (pb: FriendlyByteBuf) => {
             pb.writeByte(-1)
           }))
       case ActivateKind.TOGGLE_MAGNET =>

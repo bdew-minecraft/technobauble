@@ -48,7 +48,7 @@ class ItemBackpack extends Item(Items.nonStackable) {
           .flatMap(x => Misc.asInstanceOpt(x, classOf[CurioBackpack]))
           .foreach(x => {
             val ls = if (hand == InteractionHand.MAIN_HAND) player.getInventory.selected else 40 // 40 is offhand slot
-            NetworkHooks.openGui(p, x, (pb: FriendlyByteBuf) => {
+            NetworkHooks.openScreen(p, x, (pb: FriendlyByteBuf) => {
               pb.writeByte(ls)
             })
             Misc.asInstanceOpt(player.containerMenu, classOf[ContainerBackpack]).foreach(_.lockSlot = ls)

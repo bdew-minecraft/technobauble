@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.ServerTickEvent
-import net.minecraftforge.event.entity.{EntityJoinWorldEvent, EntityLeaveWorldEvent}
+import net.minecraftforge.event.entity.{EntityJoinLevelEvent, EntityLeaveLevelEvent}
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.server.ServerLifecycleHooks
 import org.apache.logging.log4j.{LogManager, Logger}
@@ -32,7 +32,7 @@ object PlayerStatusManager {
     mutable.Map.empty[UUID, PlayerStatus]
 
   @SubscribeEvent
-  def onEntityJoinWorldEvent(ev: EntityJoinWorldEvent): Unit = {
+  def onEntityJoinWorldEvent(ev: EntityJoinLevelEvent): Unit = {
     ev.getEntity match {
       case p: Player =>
         if (p.isLocalPlayer)
@@ -43,7 +43,7 @@ object PlayerStatusManager {
     }
   }
   @SubscribeEvent
-  def onEntityLeaveWorldEvent(ev: EntityLeaveWorldEvent): Unit = {
+  def onEntityLeaveWorldEvent(ev: EntityLeaveLevelEvent): Unit = {
     ev.getEntity match {
       case p: Player if !p.isLocalPlayer =>
         remoteStatus -= p.getUUID
