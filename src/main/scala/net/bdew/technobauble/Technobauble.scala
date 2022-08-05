@@ -13,7 +13,9 @@ import net.minecraftforge.fml.{InterModComms, ModLoadingContext}
 import top.theillusivec4.curios.api.{CuriosApi, SlotTypeMessage, SlotTypePreset}
 
 @Mod(Technobauble.ModId)
-class Technobauble {
+object Technobauble {
+  final val ModId = "technobauble"
+
   ModLoadingContext.get.registerConfig(ModConfig.Type.COMMON, Config.COMMON)
 
   Items.init()
@@ -45,8 +47,4 @@ class Technobauble {
         .build()
     )
   }
-}
-
-object Technobauble {
-  final val ModId = "technobauble"
 }
