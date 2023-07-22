@@ -36,23 +36,24 @@ class CurioLegs(stack: ItemStack, item: ItemLegs) extends ICurio {
   }
 
   def canSpeedBoost(player: LivingEntity): Boolean =
-    player.isOnGround && !player.isPassenger && !player.isSwimming && !player.isUnderWater
+    player.onGround() && !player.isPassenger && !player.isSwimming && !player.isUnderWater
 
-  override def curioTick(identifier: String, index: Int, livingEntity: LivingEntity): Unit = {
+
+  override def curioTick(ctx: SlotContext): Unit = {
     if (item.runBoost.enabled(stack) && item.hasCharge(stack, item.cfg.movingEnergyCost())) {
-      updateStepAssist(livingEntity, true)
-      if (canSpeedBoost(livingEntity)) {
-        if (livingEntity.level.isClientSide) {
-          if (livingEntity.zza != 0 || livingEntity.xxa != 0)
-            livingEntity.moveRelative(item.cfg.runBoost(), new Vec3(livingEntity.xxa, 0, livingEntity.zza))
+      updateStepAssist(ctx.entity, true)
+      if (canSpeedBoost(ctx.entity)) {
+        if (ctx.entity.level.isClientSide) {
+          if (ctx.entity.zza != 0 || ctx.entity.xxa != 0)
+            ctx.entity.moveRelative(item.cfg.runBoost(), new Vec3(ctx.entity.xxa, 0, ctx.entity.zza))
         } else {
-          if (PlayerPosTracker.positions.get(livingEntity).exists(_.distanceTo(livingEntity.position()) > 0.01))
+          if (PlayerPosTracker.positions.get(ctx.entity).exists(_.distanceTo(ctx.entity.position()) > 0.01))
             item.useCharge(stack, item.cfg.movingEnergyCost())
-          PlayerPosTracker.positions += livingEntity -> livingEntity.position()
+          PlayerPosTracker.positions += ctx.entity -> ctx.entity.position()
         }
       }
     } else {
-      updateStepAssist(livingEntity, false)
+      updateStepAssist(ctx.entity, false)
     }
   }
 

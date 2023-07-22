@@ -2,7 +2,7 @@ package net.bdew.technobauble
 
 import net.bdew.technobauble.items.legs.{CurioLegs, ItemLegs}
 import net.bdew.technobauble.items.shield.{CurioShield, ItemShield}
-import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.tags.DamageTypeTags
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent
 import net.minecraftforge.event.entity.living.{LivingAttackEvent, LivingHurtEvent}
@@ -24,7 +24,7 @@ object PlayerEventHandler {
   @SubscribeEvent
   def onLivingAttack(ev: LivingAttackEvent): Unit = {
     if (ev.getEntity.level.isClientSide || ev.isCanceled || ev.getAmount <= 0) return
-    if (ev.getSource == DamageSource.FALL) {
+    if (ev.getSource.is(DamageTypeTags.IS_FALL)) {
       ev.getEntity match {
         case player: Player =>
           Utils.findCurioHandler(player, classOf[ItemLegs], classOf[CurioLegs])

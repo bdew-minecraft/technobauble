@@ -1,17 +1,8 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
-}
-
 plugins {
     id 'scala'
+    id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id "com.matthewprenger.cursegradle" version "1.4.0"
     id "com.modrinth.minotaur" version "2.+"
@@ -45,6 +36,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             mods {
                 register(config.mod.id) {
                     source sourceSets.main
@@ -56,6 +49,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             mods {
                 register(config.mod.id) {
                     source sourceSets.main
@@ -67,9 +62,9 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            forceExit false
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             args '--mod', config.mod.id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            forceExit false
             mods {
                 register(config.mod.id) {
                     source sourceSets.main
@@ -124,7 +119,7 @@ dependencies {
         implementation fg.deobf("net.bdew:bdlib:${config.bdlib.version}-mc${config.minecraft.version}")
     }
 
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${config.minecraft.version}-${config.curios.version}")
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${config.curios.version}+${config.minecraft.version}")
 }
 
 jar {
